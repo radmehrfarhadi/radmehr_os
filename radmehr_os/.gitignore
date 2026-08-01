@@ -1,7 +1,5 @@
-# API Keys
-radmehr_os/api_key_radmehr_os.txt
-radmehr_os/nasa_api_key.txt
-
-# Python cache
+api_key_radmehr_os.txt
+nasa_api_key.txt
 __pycache__/
 *.pyc
+.env
