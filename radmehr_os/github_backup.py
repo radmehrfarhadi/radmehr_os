@@ -1,21 +1,37 @@
 import subprocess
 
 def backup():
+    result = subprocess.run(
+        ["git", "status", "--porcelain"],
+        capture_output=True,
+        text=True
+    )
+
+    if result.stdout.strip() == "":
+        print("No changes. Backup skipped.")
+        return
+
     result1 = subprocess.run(["git", "add", "."])
+
     if result1.returncode == 0:
-        print("successfully added files to git.")
-    if result1.returncode != 0:
-        print("failed to add files to git.")
+        print("Successfully added files to git.")
+    else:
+        print("Failed to add files to git.")
         return
-    result2 = subprocess.run(["git", "commit", "-m", "Radmehr OS backup"])
+
+    result2 = subprocess.run(
+        ["git", "commit", "-m", "Radmehr OS backup"]
+    )
+
     if result2.returncode == 0:
-        print("successfully committed changes.")
-    elif result2.returncode != 0:
-        print("failed to commit changes.")
+        print("Successfully committed changes.")
+    else:
+        print("Failed to commit changes.")
         return
+
     result3 = subprocess.run(["git", "push"])
+
     if result3.returncode == 0:
         print("Backup completed 🚀.")
     else:
-        print("failed to push changes.")
-        return
+        print("Failed to push changes.")
