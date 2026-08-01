@@ -1,52 +1,94 @@
 import requests
 import webbrowser
 
+
 def Space():
-    # ۱. خواندن کلید فقط یک‌بار قبل از شروع حلقه برای بالا رفتن سرعت
     try:
         with open("nasa_api_key.txt") as file:
             api_key = file.read().strip()
+
     except FileNotFoundError:
-        print("خطا: فایل nasa_api_key.txt پیدا نشد!")
+        print("Error: nasa_api_key.txt not found!")
         return
 
     while True:
         print("\n--- NASA Space Menu ---")
         print("1. Astronomy picture")
         print("2. Exit")
+        print("3. ISS location")
 
         try:
             choice = int(input("Choose: "))
+
         except ValueError:
             print("Please enter a valid number.")
             continue
 
+
         if choice == 1:
-            # یادآوری فرمت تاریخ به کاربر
-            nasa_date = input("What day? (Format: YYYY-MM-DD, e.g., 2024-10-25): ")
-            url = f"https://api.nasa.gov/planetary/apod?api_key={api_key}&date={nasa_date}"
-            
+            nasa_date = input(
+                "What day? (Format: YYYY-MM-DD, example: 2026-07-31): "
+            )
+
+            url = (
+                f"https://api.nasa.gov/planetary/apod"
+                f"?api_key={api_key}&date={nasa_date}"
+            )
+
             try:
                 response = requests.get(url)
-                # بررسی اینکه آیا پاسخ سرور موفقیت‌آمیز بوده یا خیر (مثلا تاریخ اشتباه نبوده باشد)
+                data = response.json()
+
                 if response.status_code == 200:
-                    data = response.json()
-                    
-                    # باز کردن عکس در مرورگر
                     webbrowser.open(data["url"])
-                    
-                    print(f"\nTitle: {data['title']}")
-                    print(f"URL: {data['url']}")
-                    print(f"\nExplanation:\n{data['explanation']}\n")
+
+                    print("\nTitle:")
+                    print(data["title"])
+
+                    print("\nURL:")
+                    print(data["url"])
+
+                    print("\nExplanation:")
+                    print(data["explanation"])
+
                 else:
-                    print(f"Error from NASA: {response.json().get('msg', 'Unknown error')}")
+                    print("NASA Error:")
+                    print(data.get("msg"))
+
             except Exception as e:
-                print(f"Connection error: {e}")
-    
+                print("Connection error:", e)
+
+
+
+        elif choice == 3:
+            url2 = "http://api.open-notify.org/iss-now.json"
+
+            try:
+                response = requests.get(url2)
+                data = response.json()
+
+                lat = data["iss_position"]["latitude"]
+                lon = data["iss_position"]["longitude"]
+
+                print("\nISS Location:")
+                print("Latitude:", lat)
+                print("Longitude:", lon)
+
+                google_maps_url = (
+                    f"https://www.google.com/maps?q={lat},{lon}"
+                )
+
+                webbrowser.open(google_maps_url)
+
+            except Exception as e:
+                print("ISS API error:", e)
+
+
+
         elif choice == 2:
-            print("Exiting Space module...")
-            break # استفاده از break برای خروج درست از حلقه
+            print("Exit Space module...")
+            break
+
+
         else:
-            print("Invalid choice! Please choose 1 or 2.")
-
-
+            print("Invalid choice!")
