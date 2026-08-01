@@ -1,3 +1,5 @@
+from github_backup import backup
+
 def Settings():
     try:
         with open("name_radmehr_os.txt", "r") as file:
@@ -5,21 +7,26 @@ def Settings():
     except FileNotFoundError:
         name = ""
 
-    print(f"name = {name}. for edit plase wreat (plase) but if dont you can say (enter)")
-    plase = input("")
-
-    if plase == "plase":
-        new_name = input("whats your new name? ")
-
-        with open("name_radmehr_os.txt", "w") as file:
-            file.write(new_name)
-
-    print("for chat with ai plase enter your api. for wreat plase wreat (plase) but if dont you can say (enter)")
-
-    ai = input("")
-
-    if ai == "plase":
-        api_key = input("whats your api_key? ")
-
-        with open("api_key_radmehr_os.txt", "w") as file:
-            file.write(api_key)
+    while True:
+        print("1. edit gemini api")
+        print("2. edit nasa api")
+        print("3. edit your name")
+        print("4. backup github")
+        print("5. exit")
+        choose = int(input("choose!! choose!!!!"))
+        if choose == 1:
+            gemini_api = input("whats your new gemini api? ")
+            with open("api_key_radmehr_os.txt","w") as file:
+                file.write(gemini_api)
+        elif choose == 2:
+            nasa_api = input("whats your new nasa api? ")
+            with open("nasa_api_key.txt","w") as file:
+                file.write(nasa_api)
+        elif choose == 3:
+            name = input("whats your new name? ")
+            with open("name_radmehr_os.txt","w") as file:
+                file.write(name)
+        elif choose == 4:
+            backup()
+        elif choose == 5:
+            return
