@@ -1,0 +1,71 @@
+import sys
+from space import Space
+from ai import AI
+from games import Games
+from settings import Settings
+from tools import Tools
+
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stdin.reconfigure(encoding="utf-8")
+
+def main():
+    hello()
+    get_name_and_print()
+    menu()
+
+def hello():
+    print("hello welcome to the radmehr_os!")
+
+
+
+def get_name_and_print():
+    try:
+        with open("name_radmehr_os.txt", "r") as file:
+            name = file.read()
+
+    except FileNotFoundError:
+        name = ""
+
+    if name == "":
+        name = input("whats your name child or parents? ")
+
+        with open("name_radmehr_os.txt", "w") as file:
+            file.write(name)
+
+        print(f"oh {name}! welcome!")
+
+    else:
+        print(f"oh {name}! welcome!")
+
+def Exit():
+    sys.exit()
+
+def menu():
+    print("choose your field:")
+    print("1. Games")
+    print("2. AI")
+    print("3. Space")
+    print("4. Tools")
+    print("5. Settings")
+    print("0. Exit")
+
+    while True:
+        ne = int(input("plese enter your number: "))
+        Trues = [0, 1, 2, 3, 4, 5]
+
+        if ne == 1:
+            Games()
+        elif ne == 2:
+            AI()
+        elif ne == 3:
+            Space()
+        elif ne == 4:
+            Tools()
+        elif ne == 0:
+            Exit()
+        elif ne == 5:
+            Settings()
+        elif ne not in Trues:
+            print("Invalid choice!")
+if __name__ == "__main__":
+    main()
