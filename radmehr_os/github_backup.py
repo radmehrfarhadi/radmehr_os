@@ -28,10 +28,19 @@ def backup():
     else:
         print("Failed to commit changes.")
         return
-
-    result3 = subprocess.run(["git", "push"])
+    result3 = subprocess.run(["git", "pull", "--rebase"])
 
     if result3.returncode == 0:
+        print("git rebase is Successfully .")
+        #🚀
+    else:
+        print("Failed git rebase")
+        return
+
+    result4 = subprocess.run(["git", "push"])
+    if result4.returncode == 0:
+        print("Git push completed successfully.")
         print("Backup completed 🚀.")
     else:
         print("Failed to push changes.")
+        return
