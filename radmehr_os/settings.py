@@ -12,7 +12,8 @@ def Settings():
         print("2. edit nasa api")
         print("3. edit your name")
         print("4. backup github")
-        print("5. exit")
+        print("5. show last backup time")
+        print("6. exit")
         choose = int(input("choose!! choose!!!!"))
         if choose == 1:
             gemini_api = input("whats your new gemini api? ")
@@ -29,4 +30,12 @@ def Settings():
         elif choose == 4:
             backup()
         elif choose == 5:
+            try:
+                with open("last_backup.txt", "r") as file:
+                    time = file.read()
+                print("Last backup:")
+                print(time)
+            except FileNotFoundError:
+                print("No backup found yet.")
+        elif choose == 6:
             return

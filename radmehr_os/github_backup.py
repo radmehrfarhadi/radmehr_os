@@ -1,4 +1,5 @@
 import subprocess
+from backup_history import get_backup_time
 
 def backup():
     result = subprocess.run(
@@ -43,8 +44,10 @@ def backup():
 
     result4 = subprocess.run(["git", "push"])
     if result4.returncode == 0:
+        backup_time = get_backup_time()
         print("Git push completed successfully.")
-        print("Backup completed 🚀.")
+        print(f"Backup completed 🚀 at {backup_time}")
+        
     else:
         print("Failed to push changes.")
         print(result4.stderr)
