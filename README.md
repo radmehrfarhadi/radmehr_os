@@ -2,14 +2,13 @@
 
 # 🚀 Radmehr OS
 
-### A modular Python command-line operating system
+### A modular command-line operating system simulator built with Python
 
-A personal operating system built with Python that combines AI, NASA APIs, useful tools, games, and automatic GitHub backup into one application.
+**Build • Learn • Explore • Automate**
 
 ![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
@@ -17,65 +16,71 @@ A personal operating system built with Python that combines AI, NASA APIs, usefu
 
 # 📖 About
 
-**Radmehr OS** is a modular command-line operating system written in Python.
+Radmehr OS is a modular command-line operating system simulator built with Python.
 
-The goal of this project is not only to build a useful application, but also to improve programming skills by developing a real-world project module by module.
+The goal of this project is to learn Python by building a real-world application one module at a time.
 
-This project is under active development and new features are added continuously.
+The project combines different modules such as AI, NASA Space tools, Games, Utilities, Settings, and automated GitHub backup.
+
+Radmehr OS is under active development, and new features are continuously being added.
 
 ---
 
 # ✨ Features
 
-## 🤖 AI
+## 🤖 AI Module
 
 - Gemini AI integration
-- Secure API key storage
-- AI chat module
+- Interactive AI chat
+- API key management
 
 ---
 
-## 🌌 Space
+## 🌌 Space Module
 
 - NASA Astronomy Picture of the Day (APOD)
 - Open NASA images in your browser
-- Read image explanations
-- ISS Tracker *(coming soon)*
+- Display image title
+- Display NASA explanation
 
 ---
 
-## 🛠 Tools
+## 🛠 Tools Module
 
 - Utility tools
-- More modules coming soon
+- Expandable tool system
 
 ---
 
-## 🎮 Games
+## 🎮 Games Module
 
-- Terminal games
+- Terminal-based games
 - Expandable game system
 
 ---
 
-## ⚙ Settings
+## ⚙ Settings Module
 
 - Change user name
-- Update Gemini API
-- Update NASA API
-- Automatic GitHub Backup
+- Update Gemini API key
+- Update NASA API key
+- Run GitHub backup
 
 ---
 
-# 💾 GitHub Backup
+# 💾 GitHub Backup Module
 
-One click automatically performs:
+The built-in backup module helps manage project backups automatically.
 
-- Git Add
-- Git Commit
-- Git Push
+It can:
 
-No need to open Git manually.
+- Detect project changes automatically
+- Add modified files to Git
+- Create Git commits
+- Synchronize with GitHub using rebase
+- Push changes to the repository
+
+If there are no changes, the backup process is skipped automatically.
 
 ---
 
@@ -91,15 +96,16 @@ radmehr_os/
 ├── tools.py
 ├── settings.py
 ├── github_backup.py
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-# 🔑 Local Files
+# 🔐 Private Files
 
-The following files are **NOT uploaded** to GitHub:
+The following files contain private information and are ignored by Git:
 
 ```
 api_key_radmehr_os.txt
@@ -108,31 +114,31 @@ name_radmehr_os.txt
 .env
 ```
 
-They are ignored by `.gitignore`.
+These files remain only on the local computer.
 
 ---
 
 # 🚀 Installation
 
-Clone the repository:
+## Clone the repository
 
 ```bash
 git clone https://github.com/radmehrfarhadi/radmehr_os.git
 ```
 
-Move into the project:
+## Enter the project directory
 
 ```bash
 cd radmehr_os/radmehr_os
 ```
 
-Install requirements:
+## Install dependencies
 
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
 
-Run:
+## Run Radmehr OS
 
 ```bash
 python radmehr_os.py
@@ -140,45 +146,68 @@ python radmehr_os.py
 
 ---
 
+# 📦 Requirements
+
+Project dependencies are managed using:
+
+```bash
+pip install -r requirements.txt
+```
+
+Current dependencies:
+
+- requests
+- google-genai
+
+---
+
 # 🗺️ Roadmap
 
-- ✅ GitHub Backup
 - ✅ Gemini AI
 - ✅ NASA APOD
 - ✅ Settings Module
+- ✅ GitHub Backup Module
 - ⏳ ISS Live Tracker
 - ⏳ Calculator
-- ⏳ Weather
-- ⏳ Music Player
-- ⏳ File Manager
+- ⏳ Weather Module
 - ⏳ Voice Assistant
+- ⏳ File Manager
 - ⏳ GUI Version
 - ⏳ Android Version
+- ⏳ Plugin System
 
 ---
 
 # 🤝 Contributing
 
-Suggestions, ideas, and pull requests are welcome.
+Suggestions, bug reports, and pull requests are welcome.
 
-If you find a bug, feel free to open an Issue.
+Feel free to:
+
+- Fork the project
+- Open an issue
+- Submit improvements
 
 ---
 
-# 👨‍💻 Developer
+# 👨‍💻 Author
 
-**Darya (Radmehr) Doctorzade**
+**Radmehr Farhadi(Darya)**
 
 GitHub:
 
 https://github.com/radmehrfarhadi
 
+Website:
+
+https://radmehr-farhadi.ir/
+
 ---
 
 <div align="center">
 
-### ⭐ If you like this project, please leave a Star!
+⭐ If you like this project, consider giving it a Star.
 
-Made with ❤️ and Python.
+Made with ❤️ using Python.
 
 </div>
