@@ -2,6 +2,7 @@ name_radmehr_os.txt
 nasa_api_key.txt
 api_key_radmehr_os.txt
 admin.txt
+last_backup.txt
 __pycache__/
 *.pyc
 .env
