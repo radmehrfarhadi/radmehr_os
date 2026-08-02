@@ -27,7 +27,7 @@ def get_name_and_print():
         name = ""
 
     if name == "":
-        name = input("whats your name child or parents? ")
+        name = input("whats your name?")
 
         with open("name_radmehr_os.txt", "w") as file:
             file.write(name)
@@ -50,8 +50,13 @@ def menu():
     print("0. Exit")
 
     while True:
-        ne = int(input("plese enter your number: "))
-        Trues = [0, 1, 2, 3, 4, 5]
+        while True:
+            try:
+                ne = int(input("Please enter your number: "))
+                break
+            except ValueError:
+                print("Please enter a number!")
+        valid_choices = [0, 1, 2, 3, 4, 5]
 
         if ne == 1:
             Games()
@@ -65,7 +70,7 @@ def menu():
             Exit()
         elif ne == 5:
             Settings()
-        elif ne not in Trues:
+        elif ne not in valid_choices:
             print("Invalid choice!")
 if __name__ == "__main__":
     main()

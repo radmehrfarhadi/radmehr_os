@@ -17,24 +17,28 @@ def backup():
         print("Successfully added files to git.")
     else:
         print("Failed to add files to git.")
+        print(result1.stderr)
         return
-
+    commit = input("whats your commit?")
+    if commit == "":
+        commit = "Radmehr OS backup"
     result2 = subprocess.run(
-        ["git", "commit", "-m", "Radmehr OS backup"]
+        ["git", "commit", "-m", f"{commit}"]
     )
 
     if result2.returncode == 0:
         print("Successfully committed changes.")
     else:
         print("Failed to commit changes.")
+        print(result2.stderr)
         return
     result3 = subprocess.run(["git", "pull", "--rebase"])
 
     if result3.returncode == 0:
-        print("git rebase is Successfully .")
-        #🚀
+        print("Git rebase completed successfully.")
     else:
         print("Failed git rebase")
+        print(result3.stderr)
         return
 
     result4 = subprocess.run(["git", "push"])
@@ -43,4 +47,5 @@ def backup():
         print("Backup completed 🚀.")
     else:
         print("Failed to push changes.")
+        print(result4.stderr)
         return
