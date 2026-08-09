@@ -28,7 +28,13 @@ def Settings():
             with open("name_radmehr_os.txt","w") as file:
                 file.write(name)
         elif choose == 4:
-            backup()
+            with open("radmehr_os/backup_password.txt","r") as file:
+                file = file.read()
+            password = input("password: ")
+            if password == file:
+                backup()
+            elif password != file:
+                print("you are danger!")
         elif choose == 5:
             try:
                 with open("last_backup.txt", "r") as file:

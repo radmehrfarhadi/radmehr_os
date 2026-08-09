@@ -1,5 +1,5 @@
 import subprocess
-from radmehr_os.backup_history import get_backup_time
+from backup_history import get_backup_time
 
 def backup():
     result = subprocess.run(
