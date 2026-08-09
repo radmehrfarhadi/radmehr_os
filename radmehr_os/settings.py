@@ -1,4 +1,5 @@
 from github_backup import backup
+import bcrypt
 
 def Settings():
     try:
@@ -29,12 +30,14 @@ def Settings():
                 file.write(name)
         elif choose == 4:
             with open("radmehr_os/backup_password.txt","r") as file:
-                file = file.read()
-            password = input("password: ")
-            if password == file:
+                hashed_password = file.read()
+            password2 = input("password: ")
+            if bcrypt.checkpw(password2.encode(),hashed_password.encode()):
                 backup()
-            elif password != file:
-                print("you are danger!")
+            else:
+                print("you are denger e denger!!!")
+
+            
         elif choose == 5:
             try:
                 with open("last_backup.txt", "r") as file:
