@@ -129,19 +129,19 @@ git clone https://github.com/radmehrfarhadi/radmehr_os.git
 ## Enter the project directory
 
 ```bash
-cd radmehr_os/radmehr_os
+cd radmehr_os
 ```
 
 ## Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -r radmehr_os/requirements.txt
 ```
 
 ## Run Radmehr OS
 
 ```bash
-python radmehr_os.py
+python radmehr_os/radmehr_os.py
 ```
 
 ---
