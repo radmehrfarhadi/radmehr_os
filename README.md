@@ -146,13 +146,13 @@ cd radmehr_os
 ### 3. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -r radmehr_os/requirements.txt
 ```
 
 ### 4. Run Radmehr OS
 
 ```bash
-python radmehr_os.py
+python radmehr_os/radmehr_os.py
 ```
 
 ---
