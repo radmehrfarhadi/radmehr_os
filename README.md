@@ -182,10 +182,10 @@ Current dependencies include:
 * [x] GitHub Backup
 * [x] Modular project structure
 * [x] ISS Live Tracker
+* [x] Calculator
 
 ### ⏳ Planned
 
-* [ ] Calculator
 * [ ] Weather Module
 * [ ] Voice Assistant
 * [ ] File Manager
