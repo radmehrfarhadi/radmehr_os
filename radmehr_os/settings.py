@@ -14,7 +14,8 @@ def Settings():
         print("3. edit your name")
         print("4. backup github")
         print("5. show last backup time")
-        print("6. exit")
+        print("6. edit version")
+        print("7. exit")
         choose = int(input("choose!! choose!!!!"))
         if choose == 1:
             gemini_api = input("whats your new gemini api? ")
@@ -29,7 +30,7 @@ def Settings():
             with open("name_radmehr_os.txt","w") as file:
                 file.write(name)
         elif choose == 4:
-            with open("radmehr_os/backup_password.txt","r") as file:
+            with open("radmehr_os/password.txt","r") as file:
                 hashed_password = file.read()
             password2 = input("password: ")
             if bcrypt.checkpw(password2.encode(),hashed_password.encode()):
@@ -47,4 +48,14 @@ def Settings():
             except FileNotFoundError:
                 print("No backup found yet.")
         elif choose == 6:
+            with open("radmehr_os/password.txt", "r") as file:
+                hashed_password = file.read()
+            password2 = input("password: ")
+            if bcrypt.checkpw(password2.encode(),hashed_password.encode()):
+                new_version = input("whats new version?")
+                with open("version.txt", "w") as file:
+                    file = file.write(new_version)
+            else:
+                print("you are denger e denger!!!")
+        elif choose == 7:
             return

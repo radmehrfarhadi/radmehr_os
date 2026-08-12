@@ -3,7 +3,8 @@ nasa_api_key.txt
 api_key_radmehr_os.txt
 admin.txt
 last_backup.txt
-backup_password.txt
+password.txt
+version.txt
 __pycache__/
 *.pyc
 .env
