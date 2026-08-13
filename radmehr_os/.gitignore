@@ -5,6 +5,7 @@ admin.txt
 last_backup.txt
 version.txt
 password.txt
+test_gui.py
 __pycache__/
 *.pyc
 .env
