@@ -162,7 +162,7 @@ python radmehr_os/radmehr_os.py
 Project dependencies are managed through:
 
 ```bash
-pip install -r requirements.txt
+pip install -r radmehr_os/requirements.txt
 ```
 
 Current dependencies include:
