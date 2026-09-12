@@ -53,7 +53,7 @@ def Settings():
             password2 = input("password: ")
             if bcrypt.checkpw(password2.encode(),hashed_password.encode()):
                 new_version = input("whats new version?")
-                with open("version.txt", "w") as file:
+                with open("radmehr_os/version.txt", "w") as file:
                     file = file.write(new_version)
             else:
                 print("you are denger e denger!!!")
