@@ -1,8 +1,16 @@
-# 🚀 Radmehr OS
+<p align="center">
+  <img src="radmehr_os_logo.png" width="300" alt="Radmehr OS Logo">
+</p>
 
-### A modular command-line operating system simulator built with Python
+<h1 align="center">🚀 Radmehr OS</h1>
 
-**Build • Learn • Explore • Automate**
+<p align="center">
+  <b>A modular command-line operating system simulator built with Python</b>
+</p>
+
+<p align="center">
+  Build • Learn • Explore • Automate
+</p>
 
 ---
 
@@ -34,11 +42,13 @@ Radmehr OS combines multiple modules including **Artificial Intelligence, NASA S
 * Open NASA images in the browser
 * Display image titles
 * Display NASA explanations
+* ISS Live Tracker
 
 ---
 
 ### 🛠️ Tools Module
 
+* Calculator
 * Utility tools
 * Expandable tool system
 * Designed for adding new utilities over time
@@ -59,6 +69,8 @@ Radmehr OS combines multiple modules including **Artificial Intelligence, NASA S
 * Update Gemini API key
 * Update NASA API key
 * Run GitHub backup
+* View backup information
+* Manage Radmehr OS settings
 
 ---
 
@@ -169,6 +181,9 @@ Current dependencies include:
 
 * `requests`
 * `google-genai`
+* `bcrypt`
+
+> Python standard-library modules do not need to be added to `requirements.txt`.
 
 ---
 
