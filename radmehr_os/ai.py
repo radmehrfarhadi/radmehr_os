@@ -1,4 +1,5 @@
 from google import genai
+import google
 
 def AI():
     try:
@@ -26,16 +27,18 @@ def AI():
 
         while True:
             message = input("You: ")
-
-            if message == "خداحافظ" or message == "بای" or message == "goodbye" or message == "bye":
-                print("Gemini: خداحافظ! 👋")
+            exit_words = ["خداحافظ", "بای", "goodbye", "bye"]
+            if message in exit_words:
+                print("Gemini: goodbye! 👋")
                 break
-
-            response = client.models.generate_content(
-                model="gemini-3.5-flash",
-                contents=message
-            )
-
+            try:
+                response = client.models.generate_content(
+                    model="gemini-3.5-flash",
+                    contents=message
+                )
+            except google.genai.errors.ClientError:
+                print("get new api and tern on the vpn and back to ai!")
+                return
             print("Gemini:", response.text)
 
     elif entered == 2:
