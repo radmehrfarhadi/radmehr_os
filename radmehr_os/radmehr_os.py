@@ -18,6 +18,7 @@ def hello():
     with open("radmehr_os/version.txt", "r") as file:
         version = file.read()
 
+
     print(f"hello welcome to the radmehr_os v{version}!")
 
 
@@ -26,8 +27,6 @@ def get_name_and_print():
     try:
         with open("name_radmehr_os.txt", "r") as file:
             name = file.read()
-    
-
     except FileNotFoundError:
         name = ""
 
