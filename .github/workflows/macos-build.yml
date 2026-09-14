@@ -116,6 +116,41 @@ jobs:
           chmod +x "$APP/Contents/MacOS/launcher"
           chmod +x "$APP/Contents/Resources/runtime/radmehr_os"
 
+      - name: Verify macOS app bundle
+        run: |
+          APP="dist/Radmehr OS.app"
+          test -x "$APP/Contents/MacOS/launcher"
+          test -x "$APP/Contents/Resources/runtime/radmehr_os"
+          test -f "$APP/Contents/Resources/radmehr_os/version.txt"
+          test -f "$APP/Contents/Resources/runtime/data/password.hash"
+          test -f "$APP/Contents/Resources/AppIcon.icns"
+          plutil -lint "$APP/Contents/Info.plist"
+          file "$APP/Contents/Resources/runtime/radmehr_os"
+
+      - name: Smoke test Radmehr OS on macOS
+        run: |
+          RES="dist/Radmehr OS.app/Contents/Resources"
+          cp "$RES/runtime/data/password.hash" /tmp/radmehr_os_password.hash
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          test_password = "ci-test-password"
+          Path("dist/Radmehr OS.app/Contents/Resources/runtime/data/password.hash").write_text(
+              hashlib.sha256(test_password.encode("utf-8")).hexdigest(),
+              encoding="utf-8",
+          )
+          PY
+
+          cd "$RES"
+          printf "CI Tester\n5\n4\nci-test-password\n7\n0\n" | ./runtime/radmehr_os | tee /tmp/radmehr_os_smoke.txt
+
+          grep -q "hello welcome to the radmehr_os v1.0!" /tmp/radmehr_os_smoke.txt
+          grep -q "choose your field:" /tmp/radmehr_os_smoke.txt
+          grep -q "Developer mode enabled." /tmp/radmehr_os_smoke.txt
+
+          cp /tmp/radmehr_os_password.hash runtime/data/password.hash
+
       - name: Package macOS app
         run: |
           cd dist
