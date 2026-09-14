@@ -151,6 +151,20 @@ jobs:
 
           cp /tmp/radmehr_os_password.hash runtime/data/password.hash
 
+      - name: Remove private runtime files
+        run: |
+          APP="dist/Radmehr OS.app"
+          find "$APP" -type f \(             -name "name_radmehr_os.txt" -o             -name "api_key_radmehr_os.txt" -o             -name "nasa_api_key.txt" -o             -name ".env" -o             -name "last_backup.txt" -o             -name "request.txt" -o             -name "admin.txt"           \) -delete
+
+      - name: Verify clean macOS build
+        run: |
+          APP="dist/Radmehr OS.app"
+          FOUND=$(find "$APP" -type f \(             -name "name_radmehr_os.txt" -o             -name "api_key_radmehr_os.txt" -o             -name "nasa_api_key.txt" -o             -name ".env" -o             -name "last_backup.txt" -o             -name "request.txt" -o             -name "admin.txt"           \) -print)
+          if [ -n "$FOUND" ]; then
+            echo "$FOUND"
+            exit 1
+          fi
+
       - name: Package macOS app
         run: |
           cd dist
