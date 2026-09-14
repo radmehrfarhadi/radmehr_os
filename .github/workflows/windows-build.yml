@@ -1,1 +1,48 @@
 
+name: Build Radmehr OS for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r radmehr_os/requirements.txt
+          pip install pyinstaller pillow
+
+      - name: Convert logo to ICO
+        run: |
+          python -c "from PIL import Image; img=Image.open('radmehr_os_logo.png'); img.save('radmehr_os_logo.ico', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])"
+
+      - name: Build Radmehr OS
+        run: |
+          pyinstaller --onedir --name RadmehrOS --icon=radmehr_os_logo.ico radmehr_os/radmehr_os.py
+
+      - name: Add Radmehr OS data files
+        run: |
+          New-Item -ItemType Directory -Force -Path dist/RadmehrOS/radmehr_os
+          Copy-Item radmehr_os/version.txt dist/RadmehrOS/radmehr_os/version.txt
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: RadmehrOS-Windows
+          path: dist/RadmehrOS/
