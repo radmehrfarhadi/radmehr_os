@@ -7,7 +7,10 @@ developer_mode = False
 
 def _password_file():
     if getattr(sys, "frozen", False):
-        return Path(sys.executable).resolve().parent / "radmehr_os" / "password.hash"
+        base = Path(sys.executable).resolve().parent
+        if sys.platform == "darwin":
+            return base / "data" / "password.hash"
+        return base / "radmehr_os" / "password.hash"
     return Path(__file__).resolve().parent / "password.hash"
 
 def mode():
