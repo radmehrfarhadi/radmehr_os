@@ -35,12 +35,6 @@ jobs:
         run: |
           pyinstaller --onedir --name radmehr_os radmehr_os/radmehr_os.py
 
-      - name: Add Radmehr OS data files
-        run: |
-          mkdir -p dist/radmehr_os/radmehr_os
-          cp radmehr_os/version.txt dist/radmehr_os/radmehr_os/version.txt
-          cp radmehr_os/password.hash dist/radmehr_os/radmehr_os/password.hash
-
       - name: Create macOS icon
         run: |
           python - <<'PY'
@@ -72,8 +66,13 @@ jobs:
         run: |
           APP="dist/Radmehr OS.app"
           mkdir -p "$APP/Contents/MacOS"
-          mkdir -p "$APP/Contents/Resources"
-          cp -R dist/radmehr_os "$APP/Contents/Resources/radmehr_os"
+          mkdir -p "$APP/Contents/Resources/runtime"
+          mkdir -p "$APP/Contents/Resources/radmehr_os"
+          mkdir -p "$APP/Contents/Resources/runtime/data"
+
+          cp -R dist/radmehr_os/. "$APP/Contents/Resources/runtime/"
+          cp radmehr_os/version.txt "$APP/Contents/Resources/radmehr_os/version.txt"
+          cp radmehr_os/password.hash "$APP/Contents/Resources/runtime/data/password.hash"
           cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
           cat > "$APP/Contents/Info.plist" <<'PLIST'
@@ -104,8 +103,9 @@ jobs:
           cat > "$APP/Contents/MacOS/launcher" <<'SH'
           #!/bin/bash
           APP_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-          RUNTIME="$APP_DIR/Resources/radmehr_os"
-          CMD="cd $(printf '%q' "$RUNTIME") && ./radmehr_os"
+          RESOURCES="$APP_DIR/Resources"
+          RUNTIME="$RESOURCES/runtime"
+          CMD="cd $(printf '%q' "$RESOURCES") && $(printf '%q' "$RUNTIME/radmehr_os")"
           /usr/bin/osascript \
             -e 'tell application "Terminal"' \
             -e 'activate' \
@@ -114,7 +114,7 @@ jobs:
           SH
 
           chmod +x "$APP/Contents/MacOS/launcher"
-          chmod +x "$APP/Contents/Resources/radmehr_os/radmehr_os"
+          chmod +x "$APP/Contents/Resources/runtime/radmehr_os"
 
       - name: Package macOS app
         run: |
