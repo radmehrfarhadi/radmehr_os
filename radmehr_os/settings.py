@@ -1,6 +1,13 @@
 from github_backup import backup
 from mode import mode
 
+def _read_choice():
+    try:
+        return int(input("choose!! choose!!!!"))
+    except ValueError:
+        print("Please enter a number!")
+        return None
+
 def Settings():
     developer_mode = False
     try:
@@ -8,6 +15,7 @@ def Settings():
             name = file.read()
     except FileNotFoundError:
         name = ""
+
     while True:
         if developer_mode == True:
             print("1. edit gemini api")
@@ -17,7 +25,10 @@ def Settings():
             print("5. show last backup time")
             print("6. edit version")
             print("7. exit")
-            choose = int(input("choose!! choose!!!!"))
+            choose = _read_choice()
+
+            if choose is None:
+                continue
             if choose == 1:
                 gemini_api = input("whats your new gemini api? ")
                 with open("api_key_radmehr_os.txt","w") as file:
@@ -32,8 +43,6 @@ def Settings():
                     file.write(name)
             elif choose == 4:
                 backup()
-
-            
             elif choose == 5:
                 try:
                     with open("last_backup.txt", "r") as file:
@@ -48,13 +57,19 @@ def Settings():
                     file.write(new_version)
             elif choose == 7:
                 return
+            else:
+                print("Invalid choice!")
+
         elif developer_mode == False:
             print("1. edit gemini api")
             print("2. edit nasa api")
             print("3. edit your name")
             print("4. enter developer mode")
             print("5. exit")
-            choose = int(input("choose!! choose!!!!"))
+            choose = _read_choice()
+
+            if choose is None:
+                continue
             if choose == 1:
                 gemini_api = input("whats your new gemini api? ")
                 with open("api_key_radmehr_os.txt","w") as file:
@@ -68,6 +83,12 @@ def Settings():
                 with open("name_radmehr_os.txt","w") as file:
                     file.write(name)
             elif choose == 4:
-                developer_mode = mode()
+                try:
+                    developer_mode = mode()
+                except Exception as error:
+                    print(f"Could not enter developer mode: {error}")
+                    developer_mode = False
             elif choose == 5:
                 return
+            else:
+                print("Invalid choice!")
