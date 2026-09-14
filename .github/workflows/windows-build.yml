@@ -43,6 +43,40 @@ jobs:
           Copy-Item radmehr_os/password.hash dist/radmehr_os/radmehr_os/password.hash
           attrib +h dist\radmehr_os\radmehr_os\password.hash
 
+      - name: Remove private runtime files
+        run: |
+          $privateFiles = @(
+            "name_radmehr_os.txt",
+            "api_key_radmehr_os.txt",
+            "nasa_api_key.txt",
+            ".env",
+            "last_backup.txt",
+            "request.txt",
+            "admin.txt"
+          )
+          Get-ChildItem -Path dist/radmehr_os -Recurse -Force -File | Where-Object {
+            $privateFiles -contains $_.Name
+          } | Remove-Item -Force
+
+      - name: Verify clean Windows build
+        run: |
+          $privateFiles = @(
+            "name_radmehr_os.txt",
+            "api_key_radmehr_os.txt",
+            "nasa_api_key.txt",
+            ".env",
+            "last_backup.txt",
+            "request.txt",
+            "admin.txt"
+          )
+          $found = Get-ChildItem -Path dist/radmehr_os -Recurse -Force -File | Where-Object {
+            $privateFiles -contains $_.Name
+          }
+          if ($found) {
+            $found | ForEach-Object { Write-Host "Private file found: $($_.FullName)" }
+            exit 1
+          }
+
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
