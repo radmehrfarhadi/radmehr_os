@@ -1,5 +1,4 @@
 from pathlib import Path
-import base64
 import hashlib
 import hmac
 import sys
@@ -11,33 +10,17 @@ def _password_file():
         return Path(sys.executable).resolve().parent / "radmehr_os" / "password.hash"
     return Path(__file__).resolve().parent / "password.hash"
 
-def _check_password(password, stored):
-    try:
-        algorithm, iterations, salt_b64, digest_b64 = stored.split("$", 3)
-        if algorithm != "pbkdf2_sha256":
-            return False
-
-        salt = base64.b64decode(salt_b64)
-        expected = base64.b64decode(digest_b64)
-        actual = hashlib.pbkdf2_hmac(
-            "sha256",
-            password.encode("utf-8"),
-            salt,
-            int(iterations),
-        )
-        return hmac.compare_digest(actual, expected)
-    except (ValueError, TypeError):
-        return False
-
 def mode():
     print("change to developer mode")
 
     try:
         hash_path = _password_file()
-        stored = hash_path.read_text(encoding="utf-8").strip()
-        password = input("password: ")
+        stored_hash = hash_path.read_text(encoding="utf-8").strip()
 
-        if _check_password(password, stored):
+        password = input("password: ")
+        entered_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+
+        if hmac.compare_digest(entered_hash, stored_hash):
             print("Developer mode enabled.")
             return True
 
