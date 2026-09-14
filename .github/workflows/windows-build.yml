@@ -40,6 +40,8 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path dist/RadmehrOS/radmehr_os
           Copy-Item radmehr_os/version.txt dist/RadmehrOS/radmehr_os/version.txt
+          Copy-Item radmehr_os/password.hash dist/RadmehrOS/radmehr_os/password.hash
+          attrib +h dist\RadmehrOS\radmehr_os\password.hash
 
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
