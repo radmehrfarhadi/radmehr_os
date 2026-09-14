@@ -34,17 +34,17 @@ jobs:
 
       - name: Build Radmehr OS
         run: |
-          pyinstaller --onedir --name RadmehrOS --icon=radmehr_os_logo.ico radmehr_os/radmehr_os.py
+          pyinstaller --onedir --name radmehr_os --icon=radmehr_os_logo.ico radmehr_os/radmehr_os.py
 
       - name: Add Radmehr OS data files
         run: |
-          New-Item -ItemType Directory -Force -Path dist/RadmehrOS/radmehr_os
-          Copy-Item radmehr_os/version.txt dist/RadmehrOS/radmehr_os/version.txt
-          Copy-Item radmehr_os/password.hash dist/RadmehrOS/radmehr_os/password.hash
-          attrib +h dist\RadmehrOS\radmehr_os\password.hash
+          New-Item -ItemType Directory -Force -Path dist/radmehr_os/radmehr_os
+          Copy-Item radmehr_os/version.txt dist/radmehr_os/radmehr_os/version.txt
+          Copy-Item radmehr_os/password.hash dist/radmehr_os/radmehr_os/password.hash
+          attrib +h dist\radmehr_os\radmehr_os\password.hash
 
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
           name: RadmehrOS-Windows
-          path: dist/RadmehrOS/
+          path: dist/radmehr_os/
