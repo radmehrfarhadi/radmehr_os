@@ -1,4 +1,5 @@
 import sys
+import traceback
 from space import Space
 from ai import AI
 from games import Games
@@ -17,10 +18,7 @@ def hello():
     with open("radmehr_os/version.txt", "r") as file:
         version = file.read()
 
-
     print(f"hello welcome to the radmehr_os v{version}!")
-
-
 
 def get_name_and_print():
     try:
@@ -31,12 +29,9 @@ def get_name_and_print():
 
     if name == "":
         name = input("whats your name?")
-
         with open("name_radmehr_os.txt", "w") as file:
             file.write(name)
-
         print(f"oh {name}! welcome!")
-
     else:
         print(f"oh {name}! welcome!")
 
@@ -59,6 +54,7 @@ def menu():
                 break
             except ValueError:
                 print("Please enter a number!")
+
         valid_choices = [0, 1, 2, 3, 4, 5]
 
         if ne == 1:
@@ -75,5 +71,17 @@ def menu():
             Settings()
         elif ne not in valid_choices:
             print("Invalid choice!")
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except BaseException:
+        print("\n=== RADMEHR OS ERROR REPORT ===")
+        traceback.print_exc()
+        print("\nThe program hit an error, but CMD will stay open.")
+        try:
+            input("\nPress Enter to close...")
+        except BaseException:
+            pass
