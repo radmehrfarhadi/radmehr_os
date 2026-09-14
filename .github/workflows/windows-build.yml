@@ -32,10 +32,6 @@ jobs:
         run: |
           Set-Content -Path radmehr_os/version.txt -Value "0.5" -NoNewline
 
-      - name: Convert logo to ICO
-        run: |
-          python -c "from PIL import Image; img=Image.open('radmehr_os_logo.png'); img.save('radmehr_os_logo.ico', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])"
-
       - name: Build Radmehr OS
         run: |
           pyinstaller --onedir --name RadmehrOS --icon=radmehr_os_logo.ico radmehr_os/radmehr_os.py
