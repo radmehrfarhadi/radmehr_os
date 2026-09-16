@@ -210,6 +210,23 @@ Current dependencies include:
 
 ---
 
+## 🔏 Code signing policy
+
+Free code signing provided by SignPath.io, certificate by SignPath Foundation.
+
+### Team roles
+
+* **Committer and reviewer:** [Radmehr Farhadi](https://github.com/radmehrfarhadi)
+* **Approver:** [Radmehr Farhadi](https://github.com/radmehrfarhadi)
+
+### Privacy
+
+Radmehr OS may connect to third-party network services only when the user explicitly uses features that require them, including Google Gemini, NASA APIs, and GitHub backup/synchronization. The project does not intentionally transfer information to other networked systems unless specifically requested by the user or required for a user-invoked feature.
+
+Users of network-dependent features are also subject to the privacy policies and terms of the corresponding third-party services.
+
+---
+
 ## 🤝 Contributing
 
 Suggestions, bug reports, and pull requests are welcome.
