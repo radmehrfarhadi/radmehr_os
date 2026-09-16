@@ -9,6 +9,7 @@ on:
       - 'main.py'
       - 'buildozer.spec'
       - 'radmehr_os/**'
+      - 'android_modules/**'
       - '.github/workflows/android-build.yml'
 
 jobs:
@@ -42,7 +43,12 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          buildozer -v android debug
+          # Buildozer's first run installs Android SDK components and asks
+          # interactively for the Android SDK license. Feed "yes" only to
+          # Buildozer and disable pipefail so yes exiting after EOF cannot
+          # turn an otherwise successful build into a failed step.
+          set +o pipefail
+          yes | buildozer -v android debug
 
       - name: Upload APK
         if: success()
