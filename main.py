@@ -12,9 +12,13 @@ from kivy.clock import Clock
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 CORE = os.path.join(BASE, "radmehr_os")
+ANDROID_MODULES = os.path.join(BASE, "android_modules")
 
+# Android-specific compatibility modules must win over desktop modules.
 if CORE not in sys.path:
     sys.path.insert(0, CORE)
+if ANDROID_MODULES not in sys.path:
+    sys.path.insert(0, ANDROID_MODULES)
 
 os.chdir(BASE)
 
