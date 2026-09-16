@@ -43,11 +43,8 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          set +e
-          yes | buildozer -v android debug 2>&1 | tee buildozer.log
-          buildozer_exit=${PIPESTATUS[1]}
-          echo "Buildozer exit code: $buildozer_exit"
-          exit "$buildozer_exit"
+          set -o pipefail
+          buildozer -v android debug 2>&1 | tee buildozer.log
 
       - name: Upload build log
         if: always()
