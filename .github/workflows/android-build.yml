@@ -42,7 +42,7 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          yes | buildozer android debug
+          buildozer -v android debug
 
       - name: Upload APK
         if: success()
