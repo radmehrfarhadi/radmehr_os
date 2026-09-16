@@ -9,7 +9,7 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas,txt,hash,ico
 
 version = 1.0
 
-requirements = python3,kivy,requests,google-genai
+requirements = python3,kivy,requests
 
 orientation = portrait
 fullscreen = 0
