@@ -43,12 +43,19 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          # Buildozer's first run installs Android SDK components and asks
-          # interactively for the Android SDK license. Feed "yes" only to
-          # Buildozer and disable pipefail so yes exiting after EOF cannot
-          # turn an otherwise successful build into a failed step.
-          set +o pipefail
-          yes | buildozer -v android debug
+          set +e
+          yes | buildozer -v android debug 2>&1 | tee buildozer.log
+          buildozer_exit=${PIPESTATUS[1]}
+          echo "Buildozer exit code: $buildozer_exit"
+          exit "$buildozer_exit"
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-log
+          path: buildozer.log
+          if-no-files-found: warn
 
       - name: Upload APK
         if: success()
