@@ -43,17 +43,7 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          buildozer -v android debug 2>&1 | tee buildozer.log
-          build_status=${PIPESTATUS[0]}
-          exit "$build_status"
-
-      - name: Upload build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-build-log
-          path: buildozer.log
-          if-no-files-found: warn
+          buildozer -v android debug
 
       - name: Upload APK
         if: success()
