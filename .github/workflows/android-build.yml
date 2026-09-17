@@ -43,9 +43,8 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          set +o pipefail
-          yes | buildozer -v android debug 2>&1 | tee buildozer.log
-          build_status=${PIPESTATUS[1]}
+          buildozer -v android debug 2>&1 | tee buildozer.log
+          build_status=${PIPESTATUS[0]}
           exit "$build_status"
 
       - name: Upload build log
