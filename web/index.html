@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radmehr OS Web</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#08111f;color:#e8f0ff;font-family:Tahoma,Arial,sans-serif}
+.os{max-width:900px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#111d30;border:1px solid #263a59;border-radius:18px}
+.brand{font-weight:800;font-size:22px}.badge{font-size:12px;background:#183c6d;padding:6px 10px;border-radius:999px}
+.screen{margin-top:14px;background:#050a12;border:1px solid #263a59;border-radius:18px;min-height:430px;padding:18px;direction:ltr;text-align:left;white-space:pre-wrap;overflow:auto;font:15px/1.7 ui-monospace,Consolas,monospace}
+.controls{display:flex;gap:8px;margin-top:12px;direction:ltr}.controls input{flex:1;padding:13px;border-radius:12px;border:1px solid #385173;background:#0d1726;color:white;font:inherit}
+button{border:0;border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:700}.send{background:#4f8cff;color:white}.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;direction:ltr}.quick button{background:#172842;color:#e8f0ff}
+.note{opacity:.65;font-size:12px;margin-top:10px;text-align:center}
+</style></head>
+<body><main class="os">
+<div class="top"><div class="brand">🚀 Radmehr OS</div><div class="badge">WEB EDITION</div></div>
+<div id="screen" class="screen"></div>
+<div id="quick" class="quick"></div>
+<div class="controls"><input id="cmd" autocomplete="off" placeholder="Type here..."><button class="send" id="send">Run</button></div>
+<div class="note">Radmehr OS Web • runs inside your browser</div>
+</main>
+<script>
+const s=document.getElementById('screen'),q=document.getElementById('quick'),i=document.getElementById('cmd');
+let state='menu', secret=Math.floor(Math.random()*100)+1, tries=0;
+const out=t=>{s.textContent+=t+'\n';s.scrollTop=s.scrollHeight};
+const buttons=(xs)=>{q.innerHTML='';xs.forEach(([t,v])=>{let b=document.createElement('button');b.textContent=t;b.onclick=()=>handle(v);q.appendChild(b)})};
+function menu(){state='menu';out('\nchoose your field:');out('1. Games\n2. AI\n3. Space\n4. Tools\n5. Settings\n0. Exit');buttons([['🎮 Games','1'],['🤖 AI','2'],['🌌 Space','3'],['🧮 Tools','4'],['⚙️ Settings','5']])}
+function games(){state='games';out('\nGames:\n1. Number Guessing\n2. Rock Paper Scissors\n3. Back');buttons([['🔢 Guess Number','1'],['✊ Rock Paper Scissors','2'],['↩ Back','3']])}
+function handle(v){v=String(v).trim();if(!v)return;out('> '+v);
+if(state==='name'){localStorage.setItem('radmehr_os_name',v);out('oh '+v+'! welcome!');menu();return}
+if(state==='guess'){let n=Number(v);if(!Number.isFinite(n)){out('Please enter a number!');return}tries++;if(n>secret)out('Too high!');else if(n<secret)out('Too low!');else{out('You won in '+tries+' guesses! 🎉🚀');games()}return}
+if(state==='rps'){let a=v.toLowerCase(),arr=['rock','paper','scissors'];if(!arr.includes(a)){out('Type rock, paper, or scissors.');return}let c=arr[Math.floor(Math.random()*3)];out('Computer chose: '+c);out(a===c?'Draw!':((a==='rock'&&c==='scissors')||(a==='paper'&&c==='rock')||(a==='scissors'&&c==='paper'))?'You won! 🎉':'Computer won!');games();return}
+if(state==='calc'){try{let m=v.match(/^(-?\d+(?:\.\d+)?)\s*([+\-*\/])\s*(-?\d+(?:\.\d+)?)$/);if(!m)throw 0;let a=+m[1],b=+m[3],r=m[2]=='+'?a+b:m[2]=='-'?a-b:m[2]=='*'?a*b:a/b;out(String(r))}catch(e){out('Invalid! Example: 10 + 5')}menu();return}
+if(state==='games'){if(v==='1'){state='guess';secret=Math.floor(Math.random()*100)+1;tries=0;out('I picked a number from 1 to 100. Guess it!');buttons([])}else if(v==='2'){state='rps';out('rock or paper or scissors?');buttons([['rock','rock'],['paper','paper'],['scissors','scissors']])}else games();return}
+if(state==='menu'){if(v==='1')games();else if(v==='2'){out('AI in the web edition will be connected to the site assistant in a later update.');menu()}else if(v==='3'){out('🌌 Space: Web module ready for expansion.');menu()}else if(v==='4'){state='calc';out('Calculator — example: 10 + 5');buttons([])}else if(v==='5'){out('Settings: your name is saved only in this browser.');menu()}else if(v==='0'){out('Radmehr OS exited. Refresh or press a menu button to start again.');buttons([])}else out('Invalid choice!');return}}
+document.getElementById('send').onclick=()=>{let v=i.value;i.value='';handle(v)};i.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('send').click()});
+out('hello welcome to Radmehr OS Web!');let n=localStorage.getItem('radmehr_os_name');if(n){out('oh '+n+'! welcome!');menu()}else{state='name';out("what's your name?")}
+</script></body></html>
