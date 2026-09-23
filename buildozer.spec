@@ -10,9 +10,10 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas,txt,hash,ico
 version = 1.0
 
 # Android uses android_modules/requests.py, a small urllib-based compatibility
-# shim. Keeping requests/charset-normalizer out of the APK avoids the
-# python-for-android Python 3.14 wheel compatibility failure.
-requirements = python3,kivy
+# shim. python-for-android's SDL2/Kivy stack still resolves requests internally.
+# Pin charset-normalizer to a universal pure-Python wheel; newer 3.5.x Android
+# cp314 wheels are currently rejected by p4a's install stage.
+requirements = python3,kivy,charset-normalizer==3.4.3
 
 orientation = portrait
 fullscreen = 0
